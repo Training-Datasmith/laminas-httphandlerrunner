@@ -55,7 +55,7 @@ final class RequestHandlerRunnerTest extends TestCase
     {
         $request = $this->createMock(ServerRequestInterface::class);
 
-        $serverRequestFactory = static fn(): ServerRequestInterface => $request;
+        $serverRequestFactory = static fn (): ServerRequestInterface => $request;
 
         $errorResponseGenerator = static function (): ResponseInterface {
             self::fail('Should never hit error response generator');

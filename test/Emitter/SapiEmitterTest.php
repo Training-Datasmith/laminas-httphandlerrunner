@@ -9,12 +9,15 @@ use Laminas\HttpHandlerRunner\Emitter\HeadersSent;
 use Laminas\HttpHandlerRunner\Emitter\SapiEmitter;
 use Laminas\HttpHandlerRunner\Exception\EmitterException;
 use LaminasTest\HttpHandlerRunner\TestAsset\HeaderStack;
-use PHPUnit\Framework\TestCase;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\StreamInterface;
 
 use function ob_end_clean;
 use function ob_start;
+
+use PHPUnit\Framework\TestCase;
+
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
+
 use function sprintf;
 
 final class SapiEmitterTest extends TestCase

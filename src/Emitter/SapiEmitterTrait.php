@@ -4,17 +4,21 @@ declare(strict_types=1);
 
 namespace Laminas\HttpHandlerRunner\Emitter;
 
-use Laminas\HttpHandlerRunner\Exception\EmitterException;
-use Psr\Http\Message\ResponseInterface;
-
 use function assert;
 use function function_exists;
+
 use function header;
 use function headers_sent;
 use function is_int;
 use function is_string;
+
+use Laminas\HttpHandlerRunner\Exception\EmitterException;
+
 use function ob_get_length;
 use function ob_get_level;
+
+use Psr\Http\Message\ResponseInterface;
+
 use function sprintf;
 use function ucwords;
 

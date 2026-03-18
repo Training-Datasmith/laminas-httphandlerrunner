@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Laminas\HttpHandlerRunner\Emitter;
 
+use function flush;
+
+use function preg_match;
+
 use Psr\Http\Message\ResponseInterface;
 
-use function flush;
-use function preg_match;
 use function strlen;
 use function substr;
 

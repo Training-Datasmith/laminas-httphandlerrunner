@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 namespace LaminasTest\HttpHandlerRunner\Emitter;
 
+use function gc_collect_cycles;
+use function gc_disable;
+use function gc_enable;
+use function is_int;
+use function json_encode;
+
 use Laminas\Diactoros\CallbackStream;
 use Laminas\Diactoros\Response;
 use Laminas\Diactoros\Response\EmptyResponse;
@@ -14,23 +20,21 @@ use Laminas\HttpHandlerRunner\Emitter\HeadersSent;
 use Laminas\HttpHandlerRunner\Emitter\SapiStreamEmitter;
 use Laminas\HttpHandlerRunner\Exception\EmitterException;
 use LaminasTest\HttpHandlerRunner\TestAsset\HeaderStack;
-use LaminasTest\HttpHandlerRunner\TestAsset\MockStreamHelper;
-use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\TestCase;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\StreamInterface;
 
-use function gc_collect_cycles;
-use function gc_disable;
-use function gc_enable;
-use function is_int;
-use function json_encode;
+use LaminasTest\HttpHandlerRunner\TestAsset\MockStreamHelper;
+
 use function max;
 use function memory_get_usage;
 use function ob_end_clean;
 use function ob_end_flush;
 use function ob_get_clean;
 use function ob_start;
+
+use PHPUnit\Framework\Attributes\DataProvider;
+use PHPUnit\Framework\TestCase;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\StreamInterface;
+
 use function sprintf;
 use function str_repeat;
 use function strlen;
@@ -137,7 +141,7 @@ final class SapiStreamEmitterTest extends TestCase
     public function testEmitCallbackStreamResponse(): void
     {
         $emitter  = new SapiStreamEmitter();
-        $stream   = new CallbackStream(static fn(): string => 'it works');
+        $stream   = new CallbackStream(static fn (): string => 'it works');
         $response = (new Response())
             ->withStatus(200)
             ->withBody($stream);
@@ -696,7 +700,7 @@ final class SapiStreamEmitterTest extends TestCase
 
     public function testContentRangeUnseekableBody(): void
     {
-        $body     = new CallbackStream(static fn(): string => 'Hello world');
+        $body     = new CallbackStream(static fn (): string => 'Hello world');
         $response = (new Response())
             ->withBody($body)
             ->withHeader('Content-Range', 'bytes 3-6/*');

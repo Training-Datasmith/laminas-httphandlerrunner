@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Laminas\HttpHandlerRunner\Exception;
 
+use function get_debug_type;
+
 use InvalidArgumentException;
+
 use Laminas\HttpHandlerRunner\Emitter;
 
-use function get_debug_type;
 use function sprintf;
 
 /** @final */
