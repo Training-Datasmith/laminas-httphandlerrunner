@@ -91,7 +91,7 @@ class SapiStreamEmitter implements EmitterInterface
         }
 
         if (! $body->isReadable()) {
-            echo substr($body->getContents(), $first, $length);
+            echo substr((string) $body->getContents(), $first, $length);
             return;
         }
 

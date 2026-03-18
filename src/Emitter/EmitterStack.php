@@ -48,11 +48,10 @@ class EmitterStack extends SplStack implements EmitterInterface
      *
      * @param int $offset
      * @param EmitterInterface $value
-     * @return void
      * @throws Exception\InvalidEmitterException If not an EmitterInterface instance.
      */
     #[ReturnTypeWillChange]
-    public function offsetSet($offset, $value)
+    public function offsetSet($offset, $value): void
     {
         $this->validateEmitter($value);
         parent::offsetSet($offset, $value);
@@ -62,11 +61,10 @@ class EmitterStack extends SplStack implements EmitterInterface
      * Push an emitter to the stack.
      *
      * @param EmitterInterface $value
-     * @return void
      * @throws Exception\InvalidEmitterException If not an EmitterInterface instance.
      */
     #[ReturnTypeWillChange]
-    public function push($value)
+    public function push($value): void
     {
         $this->validateEmitter($value);
         parent::push($value);
@@ -76,11 +74,10 @@ class EmitterStack extends SplStack implements EmitterInterface
      * Unshift an emitter to the stack.
      *
      * @param EmitterInterface $value
-     * @return void
      * @throws Exception\InvalidEmitterException If not an EmitterInterface instance.
      */
     #[ReturnTypeWillChange]
-    public function unshift($value)
+    public function unshift($value): void
     {
         $this->validateEmitter($value);
         parent::unshift($value);
