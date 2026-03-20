@@ -47,12 +47,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Laminas\\HttpHandlerRunner\\": "src/"
+            "Laminas\\Http_Handler_Runner\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "LaminasTest\\HttpHandlerRunner\\": "test/"
+            "Laminas_Test\\Http_Handler_Runner\\": "test/"
         },
         "files": [
             "test/TestAsset/HeadersSent.php"
