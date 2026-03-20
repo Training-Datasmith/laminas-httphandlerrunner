@@ -1,15 +1,13 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace Laminas\Http_Handler_Runner;
 
-namespace Laminas\HttpHandlerRunner;
-
-use Laminas\HttpHandlerRunner\Emitter\EmitterInterface;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\RequestHandlerInterface;
+use Laminas\Http_Handler_Runner\Emitter\Emitter_Interface;
+use Psr\Http\Message\Response_Interface;
+use Psr\Http\Message\Server_Request_Interface;
+use Psr\Http\Server\Request_Handler_Interface;
 use Throwable;
-
 /**
  * "Run" a request handler.
  *
@@ -21,7 +19,7 @@ use Throwable;
  * then the runner will use the composed error response generator to generate a
  * response, based on the exception or throwable raised.
  */
-final class RequestHandlerRunner implements RequestHandlerRunnerInterface
+final class Request_Handler_Runner implements Request_Handler_Runner_Interface
 {
     /**
      * A factory capable of generating an error response in the scenario that
@@ -33,16 +31,14 @@ final class RequestHandlerRunner implements RequestHandlerRunnerInterface
      *
      * @var callable(Throwable):ResponseInterface
      */
-    private $serverRequestErrorResponseGenerator;
-
+    private $server_request_error_response_generator;
     /**
      * A factory capable of generating a Psr\Http\Message\ServerRequestInterface instance.
      * The factory will not receive any arguments.
      *
      * @var callable():ServerRequestInterface
      */
-    private $serverRequestFactory;
-
+    private $server_request_factory;
     /**
      * @param callable():ServerRequestInterface     $serverRequestFactory
      * @param callable(Throwable):ResponseInterface $serverRequestErrorResponseGenerator
@@ -51,33 +47,30 @@ final class RequestHandlerRunner implements RequestHandlerRunnerInterface
         /**
          * A request handler to run as the application.
          */
-        private readonly RequestHandlerInterface $handler,
-        private readonly EmitterInterface $emitter,
-        callable $serverRequestFactory,
-        callable $serverRequestErrorResponseGenerator
-    ) {
-        $this->serverRequestFactory                = $serverRequestFactory;
-        $this->serverRequestErrorResponseGenerator = $serverRequestErrorResponseGenerator;
+        private readonly Request_Handler_Interface $handler,
+        private readonly Emitter_Interface $emitter,
+        callable $server_request_factory,
+        callable $server_request_error_response_generator
+    )
+    {
+        $this->server_request_factory = $server_request_factory;
+        $this->server_request_error_response_generator = $server_request_error_response_generator;
     }
-
     public function run(): void
     {
         try {
-            $request = ($this->serverRequestFactory)();
+            $request = ($this->server_request_factory)();
         } catch (Throwable $e) {
             // Error in generating the request
-            $this->emitMarshalServerRequestException($e);
+            $this->emit_marshal_server_request_exception($e);
             return;
         }
-
         $response = $this->handler->handle($request);
-
         $this->emitter->emit($response);
     }
-
-    private function emitMarshalServerRequestException(Throwable $exception): void
+    private function emit_marshal_server_request_exception(Throwable $exception): void
     {
-        $response = ($this->serverRequestErrorResponseGenerator)($exception);
+        $response = ($this->server_request_error_response_generator)($exception);
         $this->emitter->emit($response);
     }
 }

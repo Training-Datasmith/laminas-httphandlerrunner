@@ -1,14 +1,12 @@
 <?php
 
-declare(strict_types=1);
-
-namespace Laminas\HttpHandlerRunner\Exception;
+declare (strict_types=1);
+namespace Laminas\Http_Handler_Runner\Exception;
 
 use Throwable;
-
 /**
  * Marker interface for package exceptions.
  */
-interface ExceptionInterface extends Throwable
+interface Exception_Interface extends Throwable
 {
 }

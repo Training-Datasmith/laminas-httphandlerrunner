@@ -1,8 +1,7 @@
 <?php
 
-declare(strict_types=1);
-
-namespace Laminas\HttpHandlerRunner;
+declare (strict_types=1);
+namespace Laminas\Http_Handler_Runner;
 
 /**
  * "Run" a request handler.
@@ -15,7 +14,7 @@ namespace Laminas\HttpHandlerRunner;
  * then the runner will use the composed error response generator to generate a
  * response, based on the exception or throwable raised.
  */
-interface RequestHandlerRunnerInterface
+interface Request_Handler_Runner_Interface
 {
     /**
      * Run the application

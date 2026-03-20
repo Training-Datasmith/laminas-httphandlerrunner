@@ -1,14 +1,12 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace Laminas\Http_Handler_Runner\Emitter;
 
-namespace Laminas\HttpHandlerRunner\Emitter;
-
-use Laminas\HttpHandlerRunner\Exception;
-use Psr\Http\Message\ResponseInterface;
-use ReturnTypeWillChange;
+use Laminas\Http_Handler_Runner\Exception;
+use Psr\Http\Message\Response_Interface;
+use Return_Type_Will_Change;
 use SplStack;
-
 /**
  * Provides an EmitterInterface implementation that acts as a stack of Emitters.
  *
@@ -20,7 +18,7 @@ use SplStack;
  * @template-extends SplStack<EmitterInterface>
  * @final
  */
-class EmitterStack extends SplStack implements EmitterInterface
+class Emitter_Stack extends SplStack implements Emitter_Interface
 {
     /**
      * Emit a response
@@ -32,17 +30,15 @@ class EmitterStack extends SplStack implements EmitterInterface
      * As such, return a boolean false value from an emitter to indicate it
      * cannot emit the response, allowing the next emitter to try.
      */
-    public function emit(ResponseInterface $response): bool
+    public function emit(Response_Interface $response): bool
     {
         foreach ($this as $emitter) {
             if (false !== $emitter->emit($response)) {
                 return true;
             }
         }
-
         return false;
     }
-
     /**
      * Set an emitter on the stack by index.
      *
@@ -50,49 +46,46 @@ class EmitterStack extends SplStack implements EmitterInterface
      * @param EmitterInterface $value
      * @throws Exception\InvalidEmitterException If not an EmitterInterface instance.
      */
-    #[ReturnTypeWillChange]
+    #[Return_Type_Will_Change]
     public function offsetSet($offset, $value): void
     {
-        $this->validateEmitter($value);
+        $this->validate_emitter($value);
         parent::offsetSet($offset, $value);
     }
-
     /**
      * Push an emitter to the stack.
      *
      * @param EmitterInterface $value
      * @throws Exception\InvalidEmitterException If not an EmitterInterface instance.
      */
-    #[ReturnTypeWillChange]
+    #[Return_Type_Will_Change]
     public function push($value): void
     {
-        $this->validateEmitter($value);
+        $this->validate_emitter($value);
         parent::push($value);
     }
-
     /**
      * Unshift an emitter to the stack.
      *
      * @param EmitterInterface $value
      * @throws Exception\InvalidEmitterException If not an EmitterInterface instance.
      */
-    #[ReturnTypeWillChange]
+    #[Return_Type_Will_Change]
     public function unshift($value): void
     {
-        $this->validateEmitter($value);
+        $this->validate_emitter($value);
         parent::unshift($value);
     }
-
     /**
      * Validate that an emitter implements EmitterInterface.
      *
      * @throws Exception\InvalidEmitterException For non-emitter instances.
      * @psalm-assert EmitterInterface $emitter
      */
-    private function validateEmitter(mixed $emitter): void
+    private function validate_emitter(mixed $emitter): void
     {
-        if (! $emitter instanceof EmitterInterface) {
-            throw Exception\InvalidEmitterException::forEmitter($emitter);
+        if (!$emitter instanceof Emitter_Interface) {
+            throw Exception\Invalid_Emitter_Exception::for_emitter($emitter);
         }
     }
 }

@@ -1,12 +1,10 @@
 <?php
 
-declare(strict_types=1);
+declare (strict_types=1);
+namespace Laminas\Http_Handler_Runner\Emitter;
 
-namespace Laminas\HttpHandlerRunner\Emitter;
-
-use Psr\Http\Message\ResponseInterface;
-
-interface EmitterInterface
+use Psr\Http\Message\Response_Interface;
+interface Emitter_Interface
 {
     /**
      * Emit a response.
@@ -25,5 +23,5 @@ interface EmitterInterface
      * the emitter was able to emit the response, while `false` indicates
      * it was not.
      */
-    public function emit(ResponseInterface $response): bool;
+    public function emit(Response_Interface $response): bool;
 }

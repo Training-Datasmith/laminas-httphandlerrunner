@@ -1,20 +1,16 @@
 <?php
 
-declare(strict_types=1);
-
-namespace Laminas\HttpHandlerRunner;
+declare (strict_types=1);
+namespace Laminas\Http_Handler_Runner;
 
 /** @final */
-class ConfigProvider
+class Config_Provider
 {
     public function __invoke(): array
     {
-        return [
-            'dependencies' => $this->getDependencies(),
-        ];
+        return ['dependencies' => $this->get_dependencies()];
     }
-
-    public function getDependencies(): array
+    public function get_dependencies(): array
     {
         return [];
     }
